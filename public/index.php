@@ -1,4 +1,5 @@
 <?php
+include './../app/config.php';
 include './../app/Libraries/Rota.php';
 include './../app/Libraries/Controller.php';
 ?>
@@ -7,7 +8,7 @@ include './../app/Libraries/Controller.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de PHP7 e MVC</title>
+    <title><?= APP_NOME?></title>
 </head>
 <body>
     <?php
