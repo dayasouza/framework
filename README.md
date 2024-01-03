@@ -1,1 +1,3 @@
-# framework
+# Framework
+-----
+<p>Este é um projeto prático desenvolvido no curso de PHP Orientado a Objetos do UnSet. Além de todos os conceitos essenciais do PHP aprendidos durante o curso, neste projeto aprendemos a implementar os conceitos e funcionalidades do padrão de projetos MVC (Model-View-Controller) em uma aplicação real e auto escalável, similar a uma rede social, tudo de maneira simples e fácil.</p>
