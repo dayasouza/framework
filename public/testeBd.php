@@ -64,6 +64,7 @@ echo '<hr> Total Resultados: '. $db -> totalResultados();
 
 */
 
+/*
 //DELETE
 
 $id = 2;
@@ -77,6 +78,25 @@ $db -> executa();
 
 // Exibição do total de resultados afetados pela última consulta
 echo '<hr> Total Resultados: '. $db -> totalResultados();
+*/
 
+//SELECT
+
+$id = 3;
+// Preparação da consulta SQL usando placeholders para evitar injeção de SQL
+$db -> query("SELECT * FROM posts 
+WHERE id = {$id}");
+//Mostra apenas 1 resgistro
+//$db-> resultado();
+//echo $db -> resultado() -> titulo;
+
+// Iteração sobre os resultados para exibição
+foreach($db -> resultados() as $post){
+    echo $post -> id . ' - ' . $post -> titulo . '<br>';
+}
+
+
+// Exibição do total de resultados afetados pela última consulta
+echo '<hr> Total Resultados: '. $db -> totalResultados();
 
 ?>
