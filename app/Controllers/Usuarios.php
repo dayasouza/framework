@@ -19,32 +19,43 @@ class Usuarios extends Controller
                 'confirmar_senha_erro' => ''
             ];
 
-            if (empty($formulario['nome'])) :
-                $dados['nome_erro'] = 'Preencha o campo nome';
-            endif;
+            if (in_array("", $formulario)) :
 
-            if (empty($formulario['email'])) :
-                $dados['email_erro'] = 'Preencha o campo e-mail';
-            endif;
-
-            if (empty($formulario['senha'])) :
-                $dados['senha_erro'] = 'Preencha o campo senha';
-            elseif (strlen($formulario['senha']) < 6) :
-                $dados['senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
-            endif;
-
-            if (empty($formulario['confirmar_senha'])) :
-                $dados['confirmar_senha_erro'] = 'Confirme a Senha';
-            elseif (strlen($formulario['confirmar_senha']) < 6) :
-                    $dados['confirmar_senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
-            else:
-                if($formulario['senha'] != $formulario['confirmar_senha']):
-                    $dados['confirmar_senha_erro'] = 'As senhas são diferentes';
+                if (empty($formulario['nome'])) :
+                    $dados['nome_erro'] = 'Preencha o campo nome';
                 endif;
-            endif;
 
-            if(!in_array("", $formulario)):
-                echo 'Pode realizar o cadastro';
+                if (empty($formulario['email'])) :
+                    $dados['email_erro'] = 'Preencha o campo e-mail';
+                endif;
+
+                if (empty($formulario['senha'])) :
+                    $dados['senha_erro'] = 'Preencha o campo senha';
+                endif;
+
+                if (empty($formulario['confirma_senha'])) :
+                    $dados['confirmar_senha_erro'] = 'Confirme a Senha';
+                endif;
+            else :
+                if (strlen($formulario['senha']) < 6) :
+                    $dados['senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
+
+                elseif ($formulario['senha'] != $formulario['confirmar_senha']) :
+                    $dados['confirmar_senha_erro'] = 'As senhas são diferentes';
+
+                elseif (strlen($formulario['confirmar_senha']) <6):
+                    $dados['confirmar_senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
+
+                elseif (!preg_match('/^[A-Za-zÀ-ú\s]+$/', $formulario['nome'])) :
+                    $dados['nome_erro'] = 'O campo nome não deve conter números';
+
+                elseif(!filter_var ($formulario['email'], FILTER_VALIDATE_EMAIL)):
+                    $dado['email_erro'] = 'Digite um endereço de e-mail válido';
+
+                else:
+                    echo 'Pode cadastrar os dados<hr>';
+                endif;
+
             endif;
 
             var_dump($formulario);
