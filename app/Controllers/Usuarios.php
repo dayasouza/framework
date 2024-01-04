@@ -1,36 +1,58 @@
-<?php 
+<?php
 
-// Definição da classe Usuarios, que estende a classe Controller
 class Usuarios extends Controller
 {
-    
-    // Método para exibir a view de cadastro de usuários
+
     public function cadastrar()
     {
-        // Obtém os dados do formulário usando filter_input_array e aplica a filtragem
+
         $formulario = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-         // Verifica se o formulário foi submetido
-        if (isset($formulario)) {
-            // Cria um array associativo com os dados do formulário, removendo espaços em branco desnecessários
+        if (isset($formulario)) :
             $dados = [
                 'nome' => trim($formulario['nome']),
                 'email' => trim($formulario['email']),
                 'senha' => trim($formulario['senha']),
-                'confirmar_senha' => trim($formulario['confirmar_senha'])
+                'confirmar_senha' => trim($formulario['confirma_senha']),
             ];
-            // Exibe os dados do formulário para fins de depuração
+
+            if (empty($formulario['nome'])) :
+                $dados['nome_erro'] = 'Preencha o campo nome';
+            endif;
+
+            if (empty($formulario['email'])) :
+                $dados['email_erro'] = 'Preencha o campo e-mail';
+            endif;
+
+            if (empty($formulario['senha'])) :
+                $dados['senha_erro'] = 'Preencha o campo senha';
+            elseif (strlen($formulario['senha']) < 6) :
+                $dados['senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
+            endif;
+
+            if (empty($formulario['confirmar_senha'])) :
+                $dados['confirmar_senha_erro'] = 'Confirme a Senha';
+            else:
+                if($formulario['senha'] != $formulario['confirmar_senha']):
+                    $dados['confirmar_senha_erro'] = 'As senhas são diferentes';
+                endif;
+            endif;
+
+            if(!in_array("", $formulario)):
+                echo 'Pode realizar o cadastro';
+            endif;
+
             var_dump($formulario);
-        } else {
-            // Se o formulário não foi submetido, inicializa o array de dados com valores vazios
+        else :
             $dados = [
                 'nome' => '',
                 'email' => '',
                 'senha' => '',
-                'confirmar_senha' => ''
+                'confirmar_senha' => '',
             ];
-        }
-        // Chama o método 'view' da classe pai (Controller) para exibir a view 'usuarios/cadastrar'
-        $this-> view('usuarios/cadastrar', $dados);
+
+        endif;
+
+
+        $this->view('usuarios/cadastrar', $dados);
     }
 }
-?>
