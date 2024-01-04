@@ -36,7 +36,7 @@ echo '<hr> Último id: '. $db -> ultimoIdInserido();
 
 */
 
-//UPDATE
+/*UPDATE
 
 // Dados a serem inseridos no banco de dados
 $id = 2;
@@ -61,5 +61,22 @@ $db -> executa();
 
 // Exibição do total de resultados afetados pela última consulta
 echo '<hr> Total Resultados: '. $db -> totalResultados();
+
+*/
+
+//DELETE
+
+$id = 2;
+// Preparação da consulta SQL usando placeholders
+$db -> query("DELETE FROM posts WHERE id = :id");
+$db-> bind(":id", $id);
+
+// Execução da consulta SQL
+$db -> executa();
+
+
+// Exibição do total de resultados afetados pela última consulta
+echo '<hr> Total Resultados: '. $db -> totalResultados();
+
 
 ?>
