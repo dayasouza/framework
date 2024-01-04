@@ -12,7 +12,11 @@ class Usuarios extends Controller
                 'nome' => trim($formulario['nome']),
                 'email' => trim($formulario['email']),
                 'senha' => trim($formulario['senha']),
-                'confirmar_senha' => trim($formulario['confirma_senha']),
+                'confirmar_senha' => trim($formulario['confirmar_senha']),
+                'nome_erro' => '',
+                'email_erro' => '',
+                'senha_erro' => '',
+                'confirmar_senha_erro' => ''
             ];
 
             if (empty($formulario['nome'])) :
@@ -31,6 +35,8 @@ class Usuarios extends Controller
 
             if (empty($formulario['confirmar_senha'])) :
                 $dados['confirmar_senha_erro'] = 'Confirme a Senha';
+            elseif (strlen($formulario['confirmar_senha']) < 6) :
+                    $dados['confirmar_senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
             else:
                 if($formulario['senha'] != $formulario['confirmar_senha']):
                     $dados['confirmar_senha_erro'] = 'As senhas são diferentes';
@@ -48,6 +54,10 @@ class Usuarios extends Controller
                 'email' => '',
                 'senha' => '',
                 'confirmar_senha' => '',
+                'nome_erro' => '',
+                'email_erro' => '',
+                'senha_erro' => '',
+                'confirmar_senha_erro' => ''
             ];
 
         endif;
