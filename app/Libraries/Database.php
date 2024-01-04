@@ -160,8 +160,8 @@ class Database{
      */
     public function ultimoIdInserido()
     {
-        // Utiliza o método lastInsertId() do objeto $stmt para obter o último ID inserido
-        return $this-> stmt -> lastInsertId();
+        // Utiliza o método lastInsertId() do objeto $dbh para obter o último ID inserido
+        return $this-> dbh -> lastInsertId();
     }
 
 }
