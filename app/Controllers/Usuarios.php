@@ -50,7 +50,7 @@ class Usuarios extends Controller
                     $dados['nome_erro'] = 'O campo nome não deve conter números';
 
                 elseif(!filter_var ($formulario['email'], FILTER_VALIDATE_EMAIL)):
-                    $dado['email_erro'] = 'Digite um endereço de e-mail válido';
+                    $dados['email_erro'] = 'Digite um endereço de e-mail válido';
 
                 else:
                     echo 'Pode cadastrar os dados<hr>';
