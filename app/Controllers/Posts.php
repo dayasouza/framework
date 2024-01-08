@@ -1,6 +1,9 @@
 <?php 
-class Posts
+class Posts extends Controller
 {
-    # code...
+    public function index()
+    {
+        $this-> view('posts/index');
+    }
 }
 ?>
