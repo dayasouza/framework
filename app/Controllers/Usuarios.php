@@ -151,4 +151,15 @@ class Usuarios extends Controller
         $_SESSION['usuario_email'] = $usuario -> email;
 
     }
+
+    public function sair()
+    {
+        unset($_SESSION['usuario_id']);
+        unset($_SESSION['usuario_nome']);
+        unset($_SESSION['usuario_email']);
+
+        session_destroy();
+
+        header('Location: ' . URL . '');
+    }
 }
