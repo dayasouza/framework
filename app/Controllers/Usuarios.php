@@ -116,10 +116,11 @@ class Usuarios extends Controller
                     $dados['email_erro'] = 'O e-mail informado é invalido';
                 else :
                    
-                    $validarLogin = $this->usuarioModel->validarLogin($formulario['email'], $formulario['senha']);
+                    $usuario = $this->usuarioModel->validarLogin($formulario['email'], $formulario['senha']);
 
-                    if($validarLogin): 
-                        echo 'Usuario logado, pode criar a sessão <hr>';
+                    if($usuario): 
+
+                        $this-> criarSessaoUsuario($usuario);
                     else:
                         echo 'Usuario ou senha invalidos<hr>';
                     endif;
@@ -141,5 +142,13 @@ class Usuarios extends Controller
 
 
         $this->view('usuarios/login', $dados);
+    }
+
+    private function criarSessaoUsuario($usuario)
+    {
+        $_SESSION['usuario_id'] = $usuario -> id;
+        $_SESSION['usuario_nome'] = $usuario -> nome;
+        $_SESSION['usuario_email'] = $usuario -> email;
+
     }
 }

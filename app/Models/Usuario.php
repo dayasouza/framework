@@ -38,7 +38,7 @@ class Usuario
 
     public function validarLogin($email, $senha)
     {
-        $this->db->query("SELECT email, senha FROM usuarios WHERE email = :e");
+        $this->db->query("SELECT * FROM usuarios WHERE email = :e");
         $this->db->bind(":e", $email);
 
         if ($this->db->resultado()) : 
