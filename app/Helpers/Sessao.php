@@ -20,4 +20,13 @@ class Sessao
             }
         }
     }
+
+    public static function usuarioLogado()
+    {
+        if (isset($_SESSION['usuario_id'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
