@@ -63,6 +63,7 @@ class Usuarios extends Controller
 
                     if ($this->usuarioModel-> inserir($dados)) :
                         Sessao::mensagem('usuario', 'Cadastro realizado com sucesso');
+                        URL::redirecionar('usuarios/login');
                     else :
                         die("Erro ao armazenar usuario no banco de dados");
                     endif;
@@ -150,6 +151,8 @@ class Usuarios extends Controller
         $_SESSION['usuario_nome'] = $usuario -> nome;
         $_SESSION['usuario_email'] = $usuario -> email;
 
+        URL::redirecionar('paginas/home');
+
     }
 
     public function sair()
@@ -161,5 +164,7 @@ class Usuarios extends Controller
         session_destroy();
 
         header('Location: ' . URL . '');
+
+        URL::redirecionar('usuarios/login');
     }
 }
