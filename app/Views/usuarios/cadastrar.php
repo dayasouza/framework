@@ -4,6 +4,7 @@
             Cadastre-se
         </div>
         <div class="card-body">
+            <?= Sessao::mensagem('usuario') ?>
             <p class="card-text"><small class="text-muted">Preecha o formulário abaixo para fazer seu cadastro</small></p>
 
             <form name="cadastrar" method="POST" action="<?= URL ?>/usuarios/cadastrar" class="mt-4">

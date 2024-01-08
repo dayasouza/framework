@@ -62,7 +62,7 @@ class Usuarios extends Controller
                     $dados['senha'] = password_hash($formulario['senha'], PASSWORD_DEFAULT);
 
                     if ($this->usuarioModel-> inserir($dados)) :
-                        echo 'Cadastro realizado com sucesso<hr>';
+                        Sessao::mensagem('usuario', 'Cadastro realizado com sucesso');
                     else :
                         die("Erro ao armazenar usuario no banco de dados");
                     endif;
@@ -122,7 +122,7 @@ class Usuarios extends Controller
 
                         $this-> criarSessaoUsuario($usuario);
                     else:
-                        echo 'Usuario ou senha invalidos<hr>';
+                        Sessao::mensagem('usuario', 'Usuario ou senha invalidos', 'alert alert-danger');
                     endif;
 
                 endif;
