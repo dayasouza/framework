@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail: <sup class="text-danger">*</sup></label>
-                    <input type="email" name="email" id="email" value="<?=$dados['email']?>" class="form-control <?= $dados['email_erro'] ? 'is-invalid' : '' ?>">
+                    <input type="text" name="email" id="email" value="<?=$dados['email']?>" class="form-control <?= $dados['email_erro'] ? 'is-invalid' : '' ?>">
                     <div class="invalid-feedback">
                         <?= $dados['email_erro'] ?>
                     </div>
@@ -41,7 +41,7 @@
                         <input type="submit" value="Cadastrar" class="btn btn-info btn-block">
                     </div>
                     <div class="col">
-                        <a href="#">Você tem uma conta? Faça login</a>
+                        <a href="<?= URL ?>/usuarios/login">Você tem uma conta? Faça login</a>
                     </div>
                 </div>
 
