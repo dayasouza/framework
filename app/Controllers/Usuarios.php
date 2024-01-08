@@ -2,6 +2,12 @@
 
 class Usuarios extends Controller
 {
+    private $usuarioModel;
+
+    public function __construct()
+    {
+        $this->usuarioModel = $this-> model('Usuario');
+    }
 
     public function cadastrar()
     {
@@ -43,22 +49,28 @@ class Usuarios extends Controller
                 elseif ($formulario['senha'] != $formulario['confirmar_senha']) :
                     $dados['confirmar_senha_erro'] = 'As senhas são diferentes';
 
-                elseif (strlen($formulario['confirmar_senha']) <6):
-                    $dados['confirmar_senha_erro'] = 'A senha deve ter no minimo 6 caracteres';
+                elseif (Valida::validarNome($formulario['nome'])):
+                    $dados['nome_erro'] = 'O nome informado é invalido';
 
-                elseif (!preg_match('/^[A-Za-zÀ-ú\s]+$/', $formulario['nome'])) :
-                    $dados['nome_erro'] = 'O campo nome não deve conter números';
+                elseif (Valida::validarEmail($formulario['email'])) :
+                    $dados['email_erro'] = 'O e-mail informado é invalido';
 
-                elseif(!filter_var ($formulario['email'], FILTER_VALIDATE_EMAIL)):
-                    $dados['email_erro'] = 'Digite um endereço de e-mail válido';
+                elseif($this->usuarioModel-> validarEmail($formulario['email'])):
+                    $dados['email_erro'] = 'O e-mail informado já está cadastrado';
 
                 else:
-                    echo 'Pode cadastrar os dados<hr>';
+                    $dados['senha'] = password_hash($formulario['senha'], PASSWORD_DEFAULT);
+
+                    if ($this->usuarioModel-> inserir($dados)) :
+                        echo 'Cadastro realizado com sucesso<hr>';
+                    else :
+                        die("Erro ao armazenar usuario no banco de dados");
+                    endif;
                 endif;
 
             endif;
 
-            var_dump($formulario);
+            
         else :
             $dados = [
                 'nome' => '',
@@ -75,5 +87,59 @@ class Usuarios extends Controller
 
 
         $this->view('usuarios/cadastrar', $dados);
+    }
+
+    public function login()
+    {
+
+        $formulario = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        if (isset($formulario)) :
+            $dados = [
+                'email' => trim($formulario['email']),
+                'senha' => trim($formulario['senha']),
+                'email_erro' => '',
+                'senha_erro' => ''
+            ];
+
+            if (in_array("", $formulario)) :
+
+                if (empty($formulario['email'])) :
+                    $dados['email_erro'] = 'Preencha o campo e-mail';
+                endif;
+
+                if (empty($formulario['senha'])) :
+                    $dados['senha_erro'] = 'Preencha o campo senha';
+                endif;
+
+            else :
+                if (Valida::validarEmail($formulario['email'])) :
+                    $dados['email_erro'] = 'O e-mail informado é invalido';
+                else :
+                   
+                    $validarLogin = $this->usuarioModel->validarLogin($formulario['email'], $formulario['senha']);
+
+                    if($validarLogin): 
+                        echo 'Usuario logado, pode criar a sessão <hr>';
+                    else:
+                        echo 'Usuario ou senha invalidos<hr>';
+                    endif;
+
+                endif;
+
+            endif;
+
+            var_dump($formulario);
+        else :
+            $dados = [
+                'email' => '',
+                'senha' => '',
+                'email_erro' => '',
+                'senha_erro' => ''
+            ];
+
+        endif;
+
+
+        $this->view('usuarios/login', $dados);
     }
 }
