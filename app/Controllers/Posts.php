@@ -13,7 +13,10 @@ class Posts extends Controller
     }
     public function index()
     {
-        $this->view('posts/index');
+        $dados = [
+            'posts' => $this-> postModel -> exibirPosts()
+        ];
+        $this->view('posts/index', $dados);
     }
 
     public function cadastrar()

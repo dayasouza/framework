@@ -11,7 +11,14 @@ class Post
 
     public function exibirPosts()
     {
-        $this-> db -> query("SELECT * FROM posts");
+        $this-> db -> query("SELECT *,
+        posts.id AS postId,
+        posts.criado_em AS dataPost,
+        usuarios.id AS usuariosId,
+        usuarios.criado_em AS dataCadastroUsuario
+        FROM posts
+        INNER JOIN usuarios ON
+        posts.usuario_id = usuarios.id");
         return $this-> db -> resultados();
     }
     
