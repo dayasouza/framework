@@ -7,11 +7,11 @@
     </nav>
 
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-secondary text-white">
             Cadastrar Post
         </div>
 
-        <div class="card-body">
+        <div class="card-body bg-light">
 
             <form name="cadastrar" method="POST" action="<?= URL ?>/posts/cadastrar" class="mt-4">
                 <div class="form-group">
@@ -24,12 +24,12 @@
 
                 <div class="form-group">
                     <label for="texto">Texto: <sup class="text-danger">*</sup></label>
-                    <textarea name="texto" id="texto" cols="30" rows="10" class="form-control <?= $dados['texto_erro'] ? 'is-invalid' : '' ?>"><?= $dados['texto'] ?></textarea>
+                    <textarea name="texto" id="texto" cols="30" rows="5" class="form-control <?= $dados['texto_erro'] ? 'is-invalid' : '' ?>"><?= $dados['texto'] ?></textarea>
                     <div class="invalid-feedback">
                         <?= $dados['texto_erro'] ?>
                     </div>
                 </div>
-                
+
                 <input type="submit" value="Postar" class="btn btn-success btn-block">
 
             </form>

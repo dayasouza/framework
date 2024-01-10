@@ -1,13 +1,15 @@
 <?php
 class Posts extends Controller
 {
-    private $usuarioModel;
+    private $postModel;
 
     public function __construct()
     {
         if (!Sessao::usuarioLogado()) {
             URL::redirecionar('usuarios/login');
         }
+
+        $this->postModel = $this->model('Post');
     }
     public function index()
     {
@@ -23,7 +25,9 @@ class Posts extends Controller
                 'titulo' => trim($formulario['titulo']),
                 'texto' => trim($formulario['texto']),
                 'titulo_erro' => '',
-                'texto_erro' => ''
+                'texto_erro' => '',
+                'usuario_id' => $_SESSION['usuario_id']
+                
             ];
 
             if (in_array("", $formulario)) :
@@ -37,9 +41,12 @@ class Posts extends Controller
                 endif;
             else :
 
-                echo "Pode cadastrar o post <hr>";
-
-                var_dump($formulario);
+                if ($this->postModel->inserir($dados)) {
+                    Sessao::mensagem('post', 'Post realizado com sucesso');
+                    URL::redirecionar('posts');
+                } else {
+                    die("Erro publicar post");
+                }
 
             endif;
 
@@ -49,7 +56,9 @@ class Posts extends Controller
                 'titulo' => '',
                 'texto' => '',
                 'titulo_erro' => '',
-                'texto_erro' => ''
+                'texto_erro' => '',
+                'usuario_id' => '',
+                'usuario_id_erro' => ''
             ];
 
         endif;
