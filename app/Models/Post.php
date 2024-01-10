@@ -8,6 +8,12 @@ class Post
     {
         $this->db = new Database();
     }
+
+    public function exibirPosts()
+    {
+        $this-> db -> query("SELECT * FROM posts");
+        return $this-> db -> resultados();
+    }
     
     public function inserir($dados)
     {
