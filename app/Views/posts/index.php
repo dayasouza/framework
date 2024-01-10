@@ -18,7 +18,9 @@
                         <a href="#" class="btn btn-primary float-right">Ler mais</a>
                     </div>
                     <div class="card-footer text-muted">
-                        Escrito por: <?= $post->nome ?> em <?= date('d/m/Y H:i', strtotime($post-> dataPost)) ?>
+                        <small>
+                            Escrito por: <?= $post->nome ?> em <?= Valida::dataBr($post->dataPost) ?>
+                        </small>
                     </div>
                 </div>
             <?php } ?>
