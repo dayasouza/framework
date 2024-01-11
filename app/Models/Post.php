@@ -18,7 +18,8 @@ class Post
         usuarios.criado_em AS dataCadastroUsuario
         FROM posts
         INNER JOIN usuarios ON
-        posts.usuario_id = usuarios.id");
+        posts.usuario_id = usuarios.id
+        ORDER BY dataPost DESC");
         return $this-> db -> resultados();
     }
     
@@ -35,5 +36,13 @@ class Post
         else :
             return false;
         endif;
+    }
+
+    public function exibirPostPorId($id)
+    {
+        $this-> db -> query("SELECT * FROM posts WHERE id = :id");
+        $this-> db -> bind('id', $id);
+
+        return $this-> db -> resultado();
     }
 }

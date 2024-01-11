@@ -2,6 +2,7 @@
 class Posts extends Controller
 {
     private $postModel;
+    private $usuarioModel;
 
     public function __construct()
     {
@@ -10,6 +11,7 @@ class Posts extends Controller
         }
 
         $this->postModel = $this->model('Post');
+        $this->usuarioModel = $this->model('Usuario');
     }
     public function index()
     {
@@ -68,5 +70,17 @@ class Posts extends Controller
 
 
         $this->view('posts/cadastrar', $dados);
+    }
+
+    public function ver($id)
+    {
+        $post = $this-> postModel -> exibirPostPorId($id);
+        $usuario = $this-> usuarioModel -> exibirUsuarioPorId($post -> usuario_id);
+        $dados = [
+            'post' => $post,
+            'usuario' => $usuario
+        ];
+
+        $this-> view('posts/ver', $dados);
     }
 }

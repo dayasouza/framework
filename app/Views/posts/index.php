@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text"><?= $post->texto ?></p>
-                        <a href="#" class="btn btn-primary float-right">Ler mais</a>
+                        <a href="<?= URL . '/posts/ver/' . $post->postId ?>" class="btn btn-primary float-right">Ler mais</a>
                     </div>
                     <div class="card-footer text-muted">
                         <small>
