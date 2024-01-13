@@ -60,4 +60,17 @@ class Post
             return false;
         endif;
     }
+
+    public function destruir($id)
+    {
+        $this->db->query("DELETE FROM posts WHERE id = :id");
+
+        $this->db->bind("id", $id);
+
+        if ($this->db->executa()) :
+            return true;
+        else :
+            return false;
+        endif;
+    }
 }
