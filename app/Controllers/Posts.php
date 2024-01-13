@@ -16,7 +16,7 @@ class Posts extends Controller
     public function index()
     {
         $dados = [
-            'posts' => $this-> postModel -> exibirPosts()
+            'posts' => $this->postModel->exibirPosts()
         ];
         $this->view('posts/index', $dados);
     }
@@ -32,7 +32,7 @@ class Posts extends Controller
                 'titulo_erro' => '',
                 'texto_erro' => '',
                 'usuario_id' => $_SESSION['usuario_id']
-                
+
             ];
 
             if (in_array("", $formulario)) :
@@ -83,8 +83,8 @@ class Posts extends Controller
                 'texto' => trim($formulario['texto']),
                 'titulo_erro' => '',
                 'texto_erro' => '',
-                
-                
+
+
             ];
 
             if (in_array("", $formulario)) :
@@ -108,12 +108,17 @@ class Posts extends Controller
             endif;
         else :
 
-            $post = $this-> postModel -> exibirPostPorId($id);
+            $post = $this->postModel->exibirPostPorId($id);
+
+            if ($post->usuario_id != $_SESSION['usuario_id']) {
+                Sessao::mensagem('post', 'Você não tem autorização para editar esse post', 'alert alert-danger');
+                URL::redirecionar('posts');
+            }
 
             $dados = [
-                'id' => $post -> id,
-                'titulo' => $post -> titulo,
-                'texto' => $post -> texto,
+                'id' => $post->id,
+                'titulo' => $post->titulo,
+                'texto' => $post->texto,
                 'titulo_erro' => '',
                 'texto_erro' => ''
             ];
@@ -128,13 +133,13 @@ class Posts extends Controller
 
     public function ver($id)
     {
-        $post = $this-> postModel -> exibirPostPorId($id);
-        $usuario = $this-> usuarioModel -> exibirUsuarioPorId($post -> usuario_id);
+        $post = $this->postModel->exibirPostPorId($id);
+        $usuario = $this->usuarioModel->exibirUsuarioPorId($post->usuario_id);
         $dados = [
             'post' => $post,
             'usuario' => $usuario
         ];
 
-        $this-> view('posts/ver', $dados);
+        $this->view('posts/ver', $dados);
     }
 }
