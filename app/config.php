@@ -1,4 +1,13 @@
 <?php 
+
+define('DB', [
+    'HOST' => 'localhost',
+    'USERNAME' => 'root',
+    'PASSWORD' => '',
+    'BANCO' => 'framework',
+    'PORTA' => '3306'
+]);
+
 define('APP', dirname(__FILE__));
 
 define('URL', 'http://localhost/framework');

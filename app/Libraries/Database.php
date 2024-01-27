@@ -8,11 +8,11 @@
 class Database{
 
     // Configurações de conexão
-    private $host = 'localhost';
-    private $user = 'root' ;
-    private $password = '';
-    private $db = 'framework';
-    private $porta = '3306' ;
+    private $host = DB['HOST'];
+    private $user = DB['USERNAME'] ;
+    private $password = DB['PASSWORD'];
+    private $db = DB['BANCO'];
+    private $porta = DB['PORTA'] ;
 
     // Objetos PDO para manipulação de banco de dados
     private $dbh ;

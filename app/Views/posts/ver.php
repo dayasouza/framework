@@ -24,7 +24,7 @@
                     <a href="<?= URL . '/posts/editar/' . $dados['post']->id ?>" class="btn btn-sm btn-primary">Editar</a>
                 </li>
                 <li class="list-inline-item">
-                    <form action="<?= URL . '/posts/deletar/' . $dados['post']->id ?>">
+                    <form action="<?= URL . '/posts/deletar/' . $dados['post']->id ?>" method="POST">
                         <input type="submit" class="btn btn-sm btn-danger" value="Deletar">
                     </form>
                 </li>
